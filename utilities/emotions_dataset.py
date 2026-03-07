@@ -14,13 +14,15 @@ class EmotionsDataset(Dataset):
         tweet = str(self.content[idx])
         label = self.labels[idx]
 
-        encoded_sent = self.tokenizer(tweet, padding='max_length',
-                                      max_length=self.max_length)
+        encoded = self.tokenizer(tweet,
+                                    padding=False, # dynamic padding with datacollector
+                                    truncation=True,
+                                    max_length=self.max_length)
 
         o = dict()
-        o['input_ids'] = encoded_sent['input_ids']
-        o['attention_mask'] = encoded_sent['attention_mask']
-        o['labels']= torch.tensor(label)
+        o['input_ids'] = encoded['input_ids']
+        o['attention_mask'] = encoded['attention_mask']
+        o['labels']= torch.tensor(label, dtype=torch.long)
         return o
 
     def __len__(self):
