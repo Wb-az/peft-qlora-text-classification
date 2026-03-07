@@ -5,17 +5,30 @@ This repository contains code to train LLM with diverse PEFT techniques with cus
 
 ### 1.1 Dataset
 
-The dataset was sourced from kaggle.
+The datasets were sourced from kaggle and dataworld (CrowdFlower).
 
-https://www.kaggle.com/datasets/nelgiriyewithana/emotions/data
+[kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/emotions/data)
+[dataworld](https://query.data.world/s/m3dkicscou2wd5p2d2ejd7ivfkipsg)
+
+#%% md
+
+
+**`text.csv.zip`:**
+The dataset comprises emotional content in text(tweets) and a single emotion label in integers. It contains a total of 416,808 tweets of emotional content. The emotions are classified into six categories: sadness (0), joy (1), love (2), anger (3), fear (4), and surprise (5).
+The dataset can be sourced from:
+https://www.kaggle.com/datasets/nelgiriyewithana/emotions
+/data
+
+**`emotions.csv:`** The dataset comprises emotional content (tweets), tweet id, author, and a single categorical label per content id. It has in total 40,000 tweets of emotional content. A subset of this data was used in a project for Microsoft's Cortana Intelligence Gallery. The dataset was added to DataWorld on July 15, 2016, by CrowdFlower and can be sourced from: https://query.data.world/s/m3dkicscou2wd5p2d2ejd7ivfkipsg
+
 
 <table>
     <tr>
       <td>
-      <img src="plots/emotions_distribution.svg" width="300" height="300">
+      <img src="results/plots/emotions_distribution.svg" width="300" height="300">
       </td>
       <td>
-      <img src="plots/emotions_distribution_resampling.svg" width="300" height="300">
+      <img src="results/plots/emotion_train_distribution.svg" width="300" height="300">
       </td>
      </tr>
 </table>
@@ -31,7 +44,7 @@ https://www.kaggle.com/datasets/nelgiriyewithana/emotions/data
 |RoBERTa         |0.94438	      |0.949431	     |0.94438	     |0.94505	    |0.93248    | 1:04:35    |
 
 
-### 1.3 Kruskal-Wallis test
+### 1.3 test
 
 Supervised Finetuning results with LoRA:
 
