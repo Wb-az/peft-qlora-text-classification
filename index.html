@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotion Classification Benchmark | Portfolio Summary</title>
+  <meta
+    name="description"
+    content="A concise portfolio-style summary comparing quantized transformer models for emotion classification under practical hardware constraints."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #f6f9fc;
+      --panel: #ffffff;
+      --panel-2: #eef8f4;
+      --text: #142033;
+      --muted: #5d6b82;
+      --accent: #1f5eff;
+      --accent-2: #00a38c;
+      --border: rgba(20, 32, 51, 0.08);
+      --shadow: 0 16px 40px rgba(20, 32, 51, 0.08);
+      --radius: 22px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Avenir Next", Avenir, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .portfolio-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .portfolio-tag {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 72px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(31, 94, 255, 0.10);
+      border: 1px solid rgba(31, 94, 255, 0.14);
+      border-radius: 999px;
+      color: #23406f;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    /*h1 {*/
+    /*  font-size: clamp(2rem, 4.5vw, 4rem);*/
+    /*  line-height: 1.05;*/
+    /*  letter-spacing: -0.04em;*/
+    /*  margin: 0 0 18px;*/
+    /*  max-width: 20ch;*/
+    /*  color: var(--text);*/
+    /*}*/
+    h1 {
+      font-size: clamp(1.75rem, 3.6vw, 3.1rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin: 0 0 18px;
+      max-width: 30ch;
+      color: var(--text);
+    }
+
+
+    .lead {
+      max-width: 760px;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .author-block {
+      margin: 0 0 18px;
+    }
+
+    .author-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .author-role {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin: 2px 0 0;
+    }
+
+    .stack-label {
+      max-width: 760px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0 0 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 860px;
+      margin: 0 0 28px;
+    }
+
+    .stack-pill,
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 163, 140, 0.08);
+      border: 1px solid rgba(0, 163, 140, 0.14);
+      color: #1b5d55;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      align-self: start;
+      padding: 28px 28px 34px;
+      background: linear-gradient(135deg, rgba(238, 248, 244, 0.98), rgba(255, 255, 255, 1));
+      border-color: rgba(0, 163, 140, 0.12);
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 0 0 10px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      background: var(--panel-2);
+      border: 1px solid rgba(0, 163, 140, 0.12);
+      border-radius: 18px;
+      padding: 16px 18px;
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .metric .value {
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .metric .value.textual {
+      font-size: clamp(1rem, 1.6vw, 1.35rem);
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    section {
+      padding: 22px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
+    .subtle {
+      color: var(--muted);
+      max-width: 1100px;
+    }
+
+    .three {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .info-card,
+    .visual-card,
+    .center-card,
+    .stat-card {
+      padding: 22px;
+    }
+
+    .info-card {
+      background: linear-gradient(180deg, rgba(238, 248, 244, 0.55), rgba(255, 255, 255, 1));
+      border-color: rgba(0, 163, 140, 0.10);
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: #183153;
+    }
+
+    .info-card p,
+    .info-card li,
+    .stat-copy,
+    .caption,
+    .viz-subcaption {
+      color: var(--muted);
+    }
+
+    .list {
+      padding-left: 18px;
+      margin: 10px 0 0;
+    }
+
+    .list li + li {
+      margin-top: 8px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      background: #ffffff;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(20, 32, 51, 0.08);
+    }
+
+    th {
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 800;
+      background: rgba(31, 94, 255, 0.10);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    td strong {
+      color: var(--text);
+    }
+
+    .visual-card,
+    .center-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .visual-card figure,
+    .center-card figure,
+    .stat-figure {
+      margin: 0;
+    }
+
+    .visual-card figure {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .center-card figure {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .stat-figure {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .visual-card img,
+    .center-card img,
+    .stat-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(20, 32, 51, 0.06);
+    }
+
+    .narrow {
+      max-width: 920px;
+    }
+
+    .stat-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(40, 52, 90, 0.05);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(31, 94, 255, 0.16), rgba(0, 163, 140, 0.18));
+      border-color: rgba(0, 163, 140, 0.20);
+      color: var(--text);
+      box-shadow: 0 12px 24px rgba(20, 32, 51, 0.08);
+    }
+
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 18px;
+    }
+
+    .btn-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      display: block;
+    }
+
+    .hf-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .footer {
+      padding: 40px 0 64px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 960px) {
+      .header-inner,
+      .hero-grid,
+      .three,
+      .two,
+      .stat-card {
+        grid-template-columns: 1fr;
+      }
+
+      .header-inner {
+        display: grid;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 48px;
+      }
+
+      .hero-card {
+        padding: 22px 22px 28px;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wrap {
+        width: min(var(--max), calc(100% - 20px));
+      }
+
+      h1 {
+        max-width: none;
+      }
+
+      table {
+        min-width: 680px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!--  <div class="site-header">-->
+<!--    <div class="wrap header-inner">-->
+<!--      <div class="portfolio-name"> Mi name.</div>-->
+<!--      <div class="portfolio-tag">AI & Data Science Portfolio</div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">AI & Data Science Portfolio · Emotion Classification Benchmark</div>
+
+        <h1>Efficient Transformer Models<br>for Emotion Classification</h1>
+
+        <p class="lead">
+          This project compares <strong>ModernBERT</strong>, <strong>RoBERTa</strong>, and
+          <strong>Facebook-OPT-350m</strong> on six-way emotion classification. The goal was to test
+          whether <strong>8-bit quantization</strong>, <strong>parameter freezing</strong>, and
+          <strong>LoRA-based fine-tuning</strong> can deliver strong predictive performance without
+          demanding large hardware budgets.
+        </p>
+
+        <div class="author-block">
+          <p class="author-name">Azucena Ascencio</p>
+          <p class="author-role">Data Scientist · Machine Learning Engineer</p>
+        </div>
+
+        <p class="stack-label">Core stack</p>
+        <div class="stack-pills">
+          <span class="stack-pill">Python ≥ 3.12</span>
+          <span class="stack-pill">PyTorch</span>
+          <span class="stack-pill">Hugging Face Transformers</span>
+          <span class="stack-pill">TorchAO</span>
+          <span class="stack-pill">PEFT / LoRA</span>
+          <span class="stack-pill">Scikit-learn</span>
+        </div>
+
+        <div class="cta">
+          <a
+            class="btn primary"
+            href="https://github.com/Wb-az/peft-qlora-text-classification"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 4.84c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+              </svg>
+            </span>
+            <span>View Repository</span>
+          </a>
+
+          <a class="btn" href="#results">See Results</a>
+        </div>
+      </div>
+
+      <aside class="card hero-card">
+        <p class="panel-title">Benchmark Highlights</p>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <div class="label">Best Accuracy</div>
+            <div class="value">98.87%</div>
+          </div>
+
+          <div class="metric">
+            <div class="label">Best Macro F1</div>
+            <div class="value">0.9757</div>
+          </div>
+
+          <div class="metric">
+            <div class="label">Training Efficiency Leader</div>
+            <div class="value textual">RoBERTa-base</div>
+          </div>
+
+          <div class="metric">
+            <div class="label">Inference Throughput Leader</div>
+            <div class="value textual">OPT-350m</div>
+          </div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Quantized backbone</span>
+          <span class="pill">Frozen parameters</span>
+          <span class="pill">LoRA adapters</span>
+          <span class="pill">Statistical testing</span>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Why this project matters</h2>
+            <p class="subtle">
+              Many organizations need high-quality NLP models for customer analytics, sentiment monitoring,
+              or conversational systems, but they cannot always justify heavyweight training costs. This
+              benchmark tests how far efficiency techniques can go without giving up predictive quality.
+            </p>
+          </div>
+        </div>
+
+        <div class="three">
+          <article class="card info-card">
+            <h3>Practical ML design</h3>
+            <p>
+              The benchmark uses sequence classification rather than text generation, keeping the objective
+              tightly aligned with the business task being solved.
+            </p>
+          </article>
+
+          <article class="card info-card">
+            <h3>Efficiency first</h3>
+            <p>
+              The workflow applies 8-bit quantization, freezes backbone parameters, and trains LoRA adapters
+              to reduce memory requirements while preserving strong quality.
+            </p>
+          </article>
+
+          <article class="card info-card">
+            <h3>Reliable evaluation</h3>
+            <p>
+              The project goes beyond headline accuracy by reporting Macro F1, MCC, class-level behaviour,
+              and statistical significance tests across model predictions.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>How the workflow works</h2>
+            <p class="subtle">
+              The benchmark combines data preparation, class-balancing interventions, efficient fine-tuning,
+              and evaluation in one reusable pipeline.
+            </p>
+          </div>
+        </div>
+
+        <div class="two">
+          <article class="card info-card">
+            <h3>Pipeline summary</h3>
+            <ul class="list">
+              <li>Consolidate and clean emotion datasets</li>
+              <li>Split into train, validation, and test sets</li>
+              <li>Handle class imbalance with resampling and weighted loss</li>
+              <li>Quantize the model, freeze the backbone, and train LoRA adapters</li>
+              <li>Compare models on held-out data using multiple metrics and significance tests</li>
+            </ul>
+          </article>
+
+          <article class="card info-card">
+            <h3>Experiment environment</h3>
+            <ul class="list">
+              <li>Single NVIDIA L4 GPU with 23 GB VRAM</li>
+              <li>CUDA 13.0</li>
+              <li>Driver 580.82.07</li>
+              <li>Designed to reflect realistic cloud-accessible hardware constraints</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Headline results</h2>
+            <p class="subtle">
+              ModernBERT achieved the strongest predictive performance, RoBERTa delivered the lightest
+              training profile, and OPT-350m provided the fastest evaluation throughput.
+            </p>
+          </div>
+        </div>
+
+        <div class="card info-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Accuracy</th>
+                  <th>Macro F1</th>
+                  <th>MCC</th>
+                  <th>Train Time</th>
+                  <th>VRAM</th>
+                  <th>Eval Throughput</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ModernBERT-base</strong></td>
+                  <td>98.87%</td>
+                  <td>0.9757</td>
+                  <td>0.9849</td>
+                  <td>2:50:08</td>
+                  <td>429.48 MiB</td>
+                  <td>13.02 it/s</td>
+                </tr>
+                <tr>
+                  <td><strong>Facebook-OPT-350m</strong></td>
+                  <td>98.11%</td>
+                  <td>0.9663</td>
+                  <td>0.9749</td>
+                  <td>2:35:48</td>
+                  <td>581.01 MiB</td>
+                  <td>28.26 it/s</td>
+                </tr>
+                <tr>
+                  <td><strong>RoBERTa-base</strong></td>
+                  <td>97.62%</td>
+                  <td>0.9622</td>
+                  <td>0.9683</td>
+                  <td>1:21:33</td>
+                  <td>329.66 MiB</td>
+                  <td>24.53 it/s</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="caption" style="margin-top:14px;">
+            This benchmark shows that no single model dominates every dimension. ModernBERT leads on
+            predictive quality, RoBERTa is strongest on training-time and memory efficiency, and
+            OPT-350m is fastest at evaluation throughput.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap narrow">
+        <div class="section-head">
+          <div>
+            <h2>Data intervention</h2>
+            <p class="subtle">
+              The benchmark addressed class imbalance before fine-tuning, improving minority-class
+              representation in the training data.
+            </p>
+          </div>
+        </div>
+
+        <article class="card visual-card">
+          <figure>
+            <img
+              src="https://raw.githubusercontent.com/Wb-az/peft-qlora-text-classification/main/results/plots/emotions_distribution.svg"
+              alt="Emotion distribution before resampling"
+            />
+            <p class="viz-subcaption">
+              Before intervention: strong class imbalance across emotion categories.
+            </p>
+          </figure>
+
+          <figure>
+            <img
+              src="https://raw.githubusercontent.com/Wb-az/peft-qlora-text-classification/main/results/plots/emotion_train_distribution.svg"
+              alt="Balanced training distribution after intervention"
+            />
+            <p class="viz-subcaption">
+              After intervention: improved minority-class representation in the training split.
+            </p>
+          </figure>
+
+          <p class="caption">
+            Resampling and weighted-loss intervention improved training coverage for underrepresented emotions.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap narrow">
+        <div class="section-head">
+          <div>
+            <h2>Model behaviour</h2>
+            <p class="subtle">
+              The strongest-performing model also showed consistent class-level behaviour on held-out
+              evaluation data.
+            </p>
+          </div>
+        </div>
+
+        <article class="card center-card">
+          <figure>
+            <img
+              src="https://raw.githubusercontent.com/Wb-az/peft-qlora-text-classification/main/results/plots/cm_modernbert-base_inf.svg"
+              alt="Confusion matrix for ModernBERT"
+            />
+            <p class="caption">
+              ModernBERT confusion matrix showing strong diagonal density and robust recall across emotion classes.
+            </p>
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap narrow">
+        <div class="section-head">
+          <div>
+            <h2>Statistical significance</h2>
+            <p class="subtle">
+              The benchmark also tested whether model differences were statistically meaningful, rather
+              than only numerically higher on headline metrics.
+            </p>
+          </div>
+        </div>
+
+        <article class="card stat-card">
+          <figure class="stat-figure">
+            <img
+              src="https://raw.githubusercontent.com/Wb-az/peft-qlora-text-classification/main/results/plots/mc_nemar_test.svg"
+              alt="Pairwise McNemar post-hoc comparisons"
+            />
+            <p class="caption">
+              Pairwise McNemar post-hoc comparisons showing which model differences were statistically
+              significant on paired predictions.
+            </p>
+          </figure>
+
+          <div class="stat-copy">
+            <h3>Why this matters</h3>
+            <p>
+              For a non-technical audience, this means the strongest model was not selected only because
+              of a small score difference. The statistical testing adds evidence that at least part of
+              the observed advantage reflects a real performance gap rather than random variation.
+            </p>
+            <ul class="list">
+              <li>Cochran’s Q was used as the omnibus test across all three models</li>
+              <li>McNemar pairwise testing was used to identify which prediction differences were significant</li>
+              <li>This strengthens the benchmark beyond accuracy alone</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>What to take away</h2>
+            <p class="subtle">
+              The technical result is strong, but the broader lesson is about practical machine learning
+              design under constraints.
+            </p>
+          </div>
+        </div>
+
+        <div class="three">
+          <article class="card info-card">
+            <h3>Better efficiency is possible</h3>
+            <p>
+              Quantized, frozen backbones with LoRA adapters can preserve strong classification quality
+              while keeping fine-tuning practical on a single GPU.
+            </p>
+          </article>
+
+          <article class="card info-card">
+            <h3>Data and process still matter</h3>
+            <p>
+              Beyond architecture choice, reliable performance still depends heavily on dataset quality,
+              class balance, and thoughtful in-process interventions.
+            </p>
+          </article>
+
+          <article class="card info-card">
+            <h3>Built for reuse</h3>
+            <p>
+              The project is structured as a reusable benchmark rather than a one-off notebook, making
+              it easier to extend to new classification datasets and future experiments.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="two">
+          <article class="card info-card">
+            <h3>Limitations</h3>
+            <ul class="list">
+              <li>The benchmark focuses on English social media text and may not generalize to other domains</li>
+              <li>Evaluation throughput is reported, but request-level latency was not measured separately</li>
+              <li>Only three backbone families were compared in this benchmark</li>
+              <li>Emotion labels derived from social data may contain annotation noise</li>
+            </ul>
+          </article>
+
+          <article class="card info-card">
+            <h3>Reproducibility</h3>
+            <ul class="list">
+              <li>Code, plots, and experiment outputs are documented in the repository</li>
+              <li>The released adapters provide reusable starting points for related tasks</li>
+              <li>The workflow is modular and can be adapted to other supervised classification problems</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap card info-card">
+      <h2>Project links</h2>
+      <p class="subtle">
+        This page is intended as a portfolio-friendly summary for clients, hiring managers, and
+        non-technical reviewers. The repository and adapter pages provide the deeper technical details.
+      </p>
+
+      <div class="cta">
+        <a
+          class="btn primary"
+          href="https://github.com/Wb-az/peft-qlora-text-classification"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="btn-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 4.84c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+            </svg>
+          </span>
+          <span>Repository</span>
+        </a>
+
+        <a
+          class="btn"
+          href="https://huggingface.co/Wb-az/peft-modernbert-base"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="hf-icon" aria-hidden="true">🤗</span>
+          <span>ModernBERT Adapter</span>
+        </a>
+
+        <a
+          class="btn"
+          href="https://huggingface.co/Wb-az/peft-opt-350m"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="hf-icon" aria-hidden="true">🤗</span>
+          <span>OPT Adapter</span>
+        </a>
+
+        <a
+          class="btn"
+          href="https://huggingface.co/Wb-az/peft-roberta-base"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="hf-icon" aria-hidden="true">🤗</span>
+          <span>RoBERTa Adapter</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
