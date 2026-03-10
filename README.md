@@ -130,11 +130,11 @@ flowchart LR
 
 The models were evaluated on strictly held-out test data. **ModernBERT-base** delivered the strongest overall classification performance in this benchmark, while **RoBERTa-base** remained the fastest and lightest configuration by training time and VRAM footprint.
 
-| Model Architecture | Accuracy | Macro F1 | MCC (95% CI) | Precision (Love/Surprise) | Train Time | VRAM (Weights) |
-| --- | --- | --- | --- | --- | --- | --- |
-| **ModernBERT-base** | **98.87%** | **0.9757** | **0.9849** *(0.9839-0.9859)* | **0.97 / 0.90** | 2:50:08 | 429.48 MiB |
-| **Facebook-OPT-350m** | 98.11% | 0.9663 | 0.9749 *(0.9737-0.9763)* | 0.96 / 0.90 | 2:35:48 | 581.01 MiB |
-| **RoBERTa-base** | 97.62% | 0.9622 | 0.9683 *(0.9669-0.9697)* | 0.95 / 0.88 | **1:21:33** | **329.66 MiB** |
+| Model Architecture | Accuracy | Macro F1 | MCC (95% CI) | Precision (Love/Surprise) | Train Time | VRAM (Weights) | Eval<br>Throughput
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **ModernBERT-base** | **0.9887** | **0.9757** | **0.9849** *(0.9839-0.9859)* | **0.97 / 0.90** | 2:50:08 | 429.48 MiB | 13.02 it/s
+| **Facebook-OPT-350m** | 0.9811 | 0.9663 | 0.9749 *(0.9737-0.9763)* | 0.96 / 0.90 | 2:35:48 | 581.01 MiB | **28.26 it/s** |
+| **RoBERTa-base** | 0.9762 | 0.9622 | 0.9683 *(0.9669-0.9697)* | 0.95 / 0.88 | **1:21:33** | **329.66 MiB** | 24.53 it/s |
 
 <div align="center">
 <img src="results/plots/cm_modernbert-base_inf.svg?sanitize=true" width="50%" alt="Confusion Matrix">
