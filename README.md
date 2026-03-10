@@ -144,6 +144,12 @@ The models were evaluated strictly on out-of-sample test sets. **ModernBERT-base
 </p>
 </div>
 
+### PEFT Footprint
+
+Under the LoRA configuration, **OPT-350m** had the lowest trainable parameter ratio (**0.2378%**), compared with **0.7090%** for **RoBERTa-base** and **1.1197%** for **ModernBERT-base**. This makes OPT the most parameter-efficient configuration in terms of trainable adaptation footprint.
+
+However, training time did not scale linearly with trainable parameter count alone. End-to-end runtime also reflected backbone architecture, throughput characteristics, and implementation-level efficiency, which helps explain why **ModernBERT-base** did not require twice the training time of **RoBERTa-base** despite having roughly twice the trainable LoRA parameters.
+
 ## 🔬 Statistical Rigour
 
 To assess whether observed performance differences were unlikely to be due to chance, a frequentist validation framework was applied:
