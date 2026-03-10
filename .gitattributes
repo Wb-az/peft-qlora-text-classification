@@ -1,5 +1,7 @@
 # Ignore all generated HTML and SVG data from language stats
-*.html linguist-detectable=false
-*.html linguist-documentation=false
-*.svg linguist-detectable=false
-*.svg linguist-documentation=false
+**/*.html linguist-detectable=false
+**/*.html linguist-documentation
+**/*.svg linguist-detectable=false
+**/*.svg linguist-documentation
+
+results/** linguist-vendored
