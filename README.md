@@ -26,7 +26,8 @@ An end-to-end comparative benchmark of **ModernBERT**, **RoBERTa**, and **Facebo
 ├── results/                   
 │   ├── metrics/              # Performance logs (F1, Accuracy, MCC)
 │   ├── plots/                # Distribution, CM, and Significance SVGs
-│   └── weights/              # Local adapter storage (ignored by git) 
+│   └── weights/              # Local adapter storage (ignored by git)
+├── tests/                    # Initial unit tests for statistical utilities
 ├── utilities/                # Modular DS Library
 │   ├── balance_dataset.py    # Resampling interventions
 │   ├── emotions_dataset.py   # Dataset loading and mapping
@@ -166,6 +167,10 @@ Positive values indicate an advantage for the first model listed.
 | **ModernBERT vs. OPT-350m** | 0.00753 |
 | **OPT-350m vs. RoBERTa** | 0.00497 |
 
+## ✅ Current Validation
+
+- Unit tests currently cover selected statistical utility functions used in the evaluation pipeline.
+- Broader test coverage for data utilities and benchmarking components will be extended in future iterations.
 
 ## 🛠️ Usage & Inference
 
