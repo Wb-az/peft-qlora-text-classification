@@ -1,7 +1,9 @@
-# Ignore all generated HTML and SVG data from language stats
-**/*.html linguist-detectable=false
-**/*.html linguist-documentation
-**/*.svg linguist-detectable=false
-**/*.svg linguist-documentation
+# 1. Exclude the notebook from language stats
+*.ipynb linguist-detectable=false
 
+# 2. Exclude results folder (plots and HTML)
 results/** linguist-vendored
+
+# 3. Exclude any HTML or SVG leftover
+*.html linguist-detectable=false
+*.svg linguist-detectable=false
