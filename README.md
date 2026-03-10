@@ -1,5 +1,4 @@
 
-
 # Emotional Sentiment Benchmark: Quantised Transformers Pipeline
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
@@ -10,6 +9,10 @@
 [![PyCharm](https://img.shields.io/badge/PyCharm-000000.svg?style=flat&logo=PyCharm&logoColor=white)](https://www.jetbrains.com/pycharm/)
 
 An end-to-end comparative benchmark of **ModernBERT**, **RoBERTa**, and **Facebook-OPT-350m** for multi-class emotion classification. The project evaluates how **8-bit weight-only quantization**, followed by **backbone parameter freezing** and **LoRA-based parameter-efficient fine-tuning (PEFT)**, affects classification quality, training efficiency, and VRAM usage on commodity GPU hardware.
+
+While large language models are often associated with chatbot-style generation, this repository benchmarks **transformer-based large language model backbones** adapted for supervised **sequence classification**, keeping the training objective aligned with emotion labelling rather than causal text generation.
+
+The codebase is designed to be modular and reusable, so the workflow can be adapted to other supervised text-classification datasets with minimal changes. The released adapters are also reusable and can serve as efficient starting points for further fine-tuning on related classification tasks built on the same base architectures.
 
 ## 🔑 At a Glance
 - 3-model benchmark across **ModernBERT**, **RoBERTa**, and **Facebook-OPT-350m**
