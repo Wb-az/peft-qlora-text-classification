@@ -1,0 +1,3 @@
+# Treat all HTML and SVG files as documentation/generated data
+*.html linguist-documentation
+*.svg linguist-documentation
