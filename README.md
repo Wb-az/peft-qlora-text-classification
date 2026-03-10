@@ -52,7 +52,7 @@ The study consolidates a corpus of over **450,000** Twitter-derived text samples
 * **Primary Sources**: Kaggle (N. Elgiriyewithana) and DataWorld (CrowdFlower)
 * **Labels**: `id2label = {0: 'sadness', 1: 'joy', 2: 'love', 3: 'anger', 4: 'fear', 5: 'surprise'}`
 * **Quality Audit**: A severe class imbalance ratio of roughly **10:1** (Joy vs. Surprise) was addressed through targeted resampling and cost-sensitive learning to reduce majority-class bias.
-
+  
 ## 🏗️ Benchmark Pipeline
 
 ```mermaid
@@ -78,9 +78,9 @@ flowchart LR
 
 ### 1. Resource Optimisation (Efficiency)
 
-* **Torchao Int8 Quantization**: Backbone weights were transformed into **Int8 Tensor Subclasses**, reducing VRAM footprint while preserving strong classification performance.
-* **Quantization → parameter freezing → LoRA-based PEFT**: The base model was first quantized to **8-bit**, then its backbone parameters were frozen, and finally **LoRA adapters** were applied as the only trainable components. For **ModernBERT**, only **1.1197%** of parameters were trainable.
-* **Fused SDPA**: Utilized hardware-native kernels via `scaled_dot_product_attention` for optimized throughput on NVIDIA L4 GPUs.
+* **Torchao Int8 Quantization**: Backbone weights were transformed into **Int8 tensor subclasses**, reducing VRAM footprint while preserving strong classification performance.
+* **Quantization → parameter freezing → LoRA-based PEFT**: The base model was first quantized to **8-bit**, then its backbone parameters were frozen, and finally **LoRA adapters** were applied as the only trainable components. Under this configuration, **OPT-350m** had the lowest trainable parameter ratio, making it the most parameter-efficient model in terms of trainable adaptation footprint.
+* **Fused SDPA**: Used hardware-native kernels via `scaled_dot_product_attention` to improve throughput on NVIDIA L4 GPUs.
 
 ### 2. Model Interventions (Fairness & Balance)
 
@@ -102,8 +102,7 @@ To address the severe class imbalance, a multi-stage intervention was implemente
 </tr>
 </table>
 
-> **Strategic Insight:** The transition from **1a** to **1b** shows how the hybrid resampling pipeline improved minority-class representation in the training data, ensuring each minority emotion reached at least a 20% relative frequency threshold.
-
+> **Strategic Insight:** The transition from **1a** to **1b** shows how the hybrid resampling pipeline improved minority-class representation in the training data, increasing exposure to underrepresented emotions during fine-tuning.
 
 ## 🧭 Why Quantization + PEFT Matters
 
@@ -129,7 +128,7 @@ flowchart LR
 
 ## 📈 Performance & Efficiency Benchmark
 
-The models were evaluated strictly on out-of-sample test sets. **ModernBERT-base** delivered the strongest overall classification performance, while **RoBERTa-base** remained the fastest and lightest configuration in the benchmark.
+The models were evaluated on strictly held-out test data. **ModernBERT-base** delivered the strongest overall classification performance in this benchmark, while **RoBERTa-base** remained the fastest and lightest configuration by training time and VRAM footprint.
 
 | Model Architecture | Accuracy | Macro F1 | MCC (95% CI) | Precision (Love/Surprise) | Train Time | VRAM (Weights) |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -157,7 +156,7 @@ To assess whether observed performance differences were unlikely to be due to ch
 * **Cochran’s Q Test**: omnibus test for differences across the three paired model prediction sets
 * **McNemar’s Pairwise Test**: post-hoc test for significant pairwise differences in predictions when the omnibus result was significant
 
-Pairwise testing indicated that **ModernBERT** significantly outperformed at least one competing architecture (Figure 3).
+Pairwise testing indicated that **ModernBERT** showed a statistically significant advantage over at least one competing architecture. Pairwise accuracy differences are summarised below.
 
 <div align="center">
 <img src="results/plots/mc_nemar_test.svg" width="50%" alt="Pairwise McNemar test results">
