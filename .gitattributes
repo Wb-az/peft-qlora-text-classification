@@ -1,3 +1,5 @@
-# Treat all HTML and SVG files as documentation/generated data
-*.html linguist-documentation
-*.svg linguist-documentation
+# Ignore all generated HTML and SVG data from language stats
+*.html linguist-detectable=false
+*.html linguist-documentation=false
+*.svg linguist-detectable=false
+*.svg linguist-documentation=false
