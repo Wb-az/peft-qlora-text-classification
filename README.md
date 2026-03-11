@@ -34,7 +34,7 @@ The codebase is designed to be modular and reusable, so the workflow can be adap
 ├── utilities/                # Modular DS Library
 │   ├── balance_dataset.py    # Resampling interventions
 │   ├── emotions_dataset.py   # Dataset loading and mapping
-│   ├── eval_metrics.py       # Metrics calculation logic
+│   ├── eval_metrics.py       # Metrics calculation logic + bootstrap CI
 │   ├── hf_pipeline.py        # Selective Quantization & Loading
 │   ├── stats_tools.py        # Cochran’s Q & McNemar tests
 │   └── weighted_loss.py      # Custom Weighted Cross-Entropy
@@ -86,8 +86,8 @@ flowchart LR
 
 To address the severe class imbalance, a multi-stage intervention was implemented:
 
-* **Hybrid Resampling**: Utilised `RandomUnderSampler` and `OverSampler` strictly on the training split to ensure a balanced signal.
-* **Cost-Sensitive Learning**: Implemented a **Custom Weighted Cross-Entropy Loss** to penalize misclassifications of minority emotions.
+* **Hybrid Resampling**: Utilised `RandomUnderSampler` and `OverSampler` strictly on the training split to improve class balance while avoiding data leakage and preserving an unbiased validation and test evaluation pipeline.
+* **Cost-Sensitive Learning**: Implemented a **Custom Weighted Cross-Entropy Loss (wCE)** to penalize misclassifications of minority emotions.
 
 <table style="border-collapse: collapse; border: none; width: 100%;">
 <tr>
@@ -130,6 +130,9 @@ flowchart LR
 
 The models were evaluated on strictly held-out test data. **ModernBERT-base** delivered the strongest overall classification performance in this benchmark, while **RoBERTa-base** remained the fastest and lightest configuration by training time and VRAM footprint.
 
+In addition to point estimates, bootstrap resampling was applied to held-out test predictions to compute 95% confidence intervals, providing a more robust estimate of metric uncertainty across model runs.
+
+
 | Model Architecture | Accuracy | Macro F1 | MCC (95% CI) | Precision (Love/Surprise) | Train Time | VRAM (Weights) | Eval<br>Throughput
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **ModernBERT-base** | **0.9887** | **0.9757** | **0.9849** *(0.9839-0.9859)* | **0.97 / 0.90** | 2:50:08 | 429.48 MiB | 13.02 it/s
@@ -151,10 +154,12 @@ However, training time did not scale linearly with trainable parameter count alo
 
 ## 🔬 Statistical Rigour
 
-To assess whether observed performance differences were unlikely to be due to chance, a frequentist validation framework was applied:
+To strengthen the reliability of the evaluation, both uncertainty estimation and significance testing were applied:
 
-* **Cochran’s Q Test**: omnibus test for differences across the three paired model prediction sets
-* **McNemar’s Pairwise Test**: post-hoc test for significant pairwise differences in predictions when the omnibus result was significant
+- **Bootstrap Confidence Intervals:** Held-out prediction-label pairs were bootstrap-resampled, with evaluation metrics recomputed in each iteration to estimate 95% confidence intervals.
+- **Cochran’s Q Test:** Applied to the original paired model predictions as an omnibus test for overall differences across models.
+- **McNemar’s Pairwise Test:** Applied post hoc to the original paired predictions when the omnibus test was significant, to determine which model pairs differed significantly.
+
 
 Pairwise testing indicated that **ModernBERT** showed a statistically significant advantage over at least one competing architecture. Pairwise accuracy differences are summarised below.
 
