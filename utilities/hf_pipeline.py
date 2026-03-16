@@ -21,6 +21,12 @@ HEAD_PREFIXES = (
     "qa_outputs", "classification_head", "pre_classifier"
 )
 
+if torch.cuda.is_bf16_supported():
+    dtype = torch.bfloat16
+else:
+    dtype = torch.float16
+    
+
 class CastOutputToFloat(nn.Sequential):
     def forward(self, *args, **kwargs):
         out = super().forward(*args, **kwargs)
@@ -62,8 +68,7 @@ def quantization_report(model: nn.Module) -> None:
     
     # Initialize our counters
     counts = {'all_modules': 0, 'total_linear': 0,
-                        'base_int8': 0, 'lora_layers': 0, 'head_layers': 0
-    }
+              'base_int8': 0, 'lora_layers': 0, 'head_layers': 0}
                      
     total_params_bytes = 0
 
@@ -194,6 +199,10 @@ def load_seqcls_with_adapter(adapter_dir, num_labels, id2label, label2id, device
         quantized=quantized,
     )
     
+    # Basic stability (Only for OPT)
+    for name, module in base.named_modules():
+        if isinstance(module, nn.Linear):
+            module.to(dtype)
     model = PeftModel.from_pretrained(base, adapter_dir)
     
     tokenizer = build_tokenizer(adapter_dir)
@@ -258,6 +267,7 @@ def inf_predictions(adapter_dir, text, labels, **kwargs):
                                                  device = kwargs['device'],
                                                  quantized=kwargs['quantized'])
    
+    model.to(dtype)
     test_dataloader = inference_dataloader(tokenizer, max_length=kwargs['max_length'],
                                         text=text, labels=labels, batch=kwargs['batch'])
     out = predict(model, test_dataloader, device=kwargs['device'])
