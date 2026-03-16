@@ -134,5 +134,7 @@ if __name__ == "__main__":
 
         if comparison:
             print("\nComparison Matrix:\n", comparison[0])
+            print("")
+            print("\nModels Direction:\n", comparison[1])
     else:
         print("\nSingle model evaluation complete.")
