@@ -199,7 +199,7 @@ pip install -q imbalanced-learn evaluate scikit-posthocs plotly
 
 ### 2. Load and Merge Adapters
 
-The example below shows how to load and merge the **ModernBERT** adapter. Additional adapter checkpoints are listed in the **Model Weights** section below.
+The example below shows how to load and merge the **ModernBERT** adapter. Additional adapter checkpoints are listed in the **Model Weights** section below. Use the function `load_seqcls_with_adapter` to load the opt adapter if you want to quantize the base model.
 
 ```python
 import torch
