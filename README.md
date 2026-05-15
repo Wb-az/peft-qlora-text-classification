@@ -14,12 +14,13 @@ While large language models are often associated with chatbot-style generation, 
 
 The codebase is designed to be modular and reusable, so the workflow can be adapted to other supervised text-classification datasets with minimal changes. The released adapters are also reusable and can serve as efficient starting points for further fine-tuning on related classification tasks built on the same base architectures.
 
-## 🔑 At a Glance
-- 3-model benchmark across **ModernBERT**, **RoBERTa**, and **Facebook-OPT-350m**
-- 6-class emotion classification on a corpus of **450,000+** Twitter-derived samples
-- **8-bit quantization → backbone freezing → LoRA-based PEFT**
-- Best overall performer: **ModernBERT-base** with **98.87% accuracy** and **0.9757 Macro F1**
-- Most efficient configuration: **RoBERTa-base**, with the lowest VRAM footprint and fastest training time
+## At a Glance
+- 3-model benchmark across ModernBERT, RoBERTa, and Facebook-OPT-350m
+- 6-class emotion classification on a corpus of 450,000+ Twitter-derived samples
+- 8-bit quantization → backbone freezing → LoRA-based PEFT
+- Best overall performer: ModernBERT-base with 98.87% accuracy and 97.57% Macro F1
+- Most efficient configuration: RoBERTa-base, with the lowest VRAM footprint and fastest training time
+
 
 ## 📂 Project Structure
 
