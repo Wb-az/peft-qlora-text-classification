@@ -1,18 +1,22 @@
 
 # Emotional Sentiment Benchmark: Quantised Transformers Pipeline
-
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org/)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Transformers%20v5.2-FFD21E)](https://huggingface.co/)
 [![Torchao](https://img.shields.io/badge/Optimized%20with-Torchao%20v0.16-orange)](https://github.com/pytorch/ao)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Mermaid](https://img.shields.io/badge/Mermaid-FF3670.svg?style=flat&logo=mermaid&logoColor=white)](https://mermaid.js.org/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![PyCharm](https://img.shields.io/badge/PyCharm-000000.svg?style=flat&logo=PyCharm&logoColor=white)](https://www.jetbrains.com/pycharm/)
+[![Cloudflare](https://img.shields.io/badge/Live%20Portfolio-Cloudflare-F38020.svg?style=flat&logo=cloudflare&logoColor=white)](https://peft-qlora-text-classification.liebeazers.workers.dev/)
 
 An end-to-end comparative benchmark of **ModernBERT**, **RoBERTa**, and **Facebook-OPT-350m** for multi-class emotion classification. The project evaluates how **8-bit weight-only quantization**, followed by **backbone parameter freezing** and **LoRA-based parameter-efficient fine-tuning (PEFT)**, affects classification quality, training efficiency, and VRAM usage on commodity GPU hardware.
 
 While large language models are often associated with chatbot-style generation, this repository benchmarks **transformer-based large language model backbones** adapted for supervised **sequence classification**, keeping the training objective aligned with emotion labelling rather than causal text generation.
 
 The codebase is designed to be modular and reusable, so the workflow can be adapted to other supervised text-classification datasets with minimal changes. The released adapters are also reusable and can serve as efficient starting points for further fine-tuning on related classification tasks built on the same base architectures.
+
+🌐 **Live deployment:** [View the project on Cloudflare](https://peft-qlora-text-classification.liebeazers.workers.dev)
 
 ## At a Glance
 - 3-model benchmark across ModernBERT, RoBERTa, and Facebook-OPT-350m
