@@ -199,7 +199,7 @@ def load_seqcls_with_adapter(adapter_dir, num_labels, id2label, label2id, device
         quantized=quantized,
     )
     
-    # Basic stability (Only for OPT)
+    # Basic stability
     for name, module in base.named_modules():
         if isinstance(module, nn.Linear):
             module.to(dtype)
