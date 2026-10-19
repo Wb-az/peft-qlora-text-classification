@@ -641,7 +641,7 @@
           <span class="stack-pill">PyTorch</span>
           <span class="stack-pill">Hugging Face Transformers</span>
           <span class="stack-pill">TorchAO</span>
-          <span class="stack-pill">PEFT / QLoRA</span>
+          <span class="stack-pill">PEFT / LoRA · INT8 Quantization</span>
           <span class="stack-pill">Scikit-learn</span>
         </div>
 
@@ -723,10 +723,10 @@
           </article>
 
           <article class="card info-card">
-            <h3>Efficiency first</h3>
+            <h3>Balancing performance and efficiency</h3>
             <p>
-              The workflow applies 8-bit quantization, freezes backbone parameters, and trains LoRA adapters
-              to reduce memory requirements while preserving strong quality.
+              The workflow applies 8-bit weight-only quantization, freezes backbone parameters, and trains 
+              LoRA adapters to reduce memory requirements while preserving strong classification performance.
             </p>
           </article>
 
@@ -983,7 +983,7 @@
           <article class="card info-card">
             <h3>Data and process still matter</h3>
             <p>
-              Beyond architecture choice, reliable performance still depends heavily on dataset quality,
+              Beyond architecture choice, model performance is also strongly influenced by dataset quality, 
               class balance, and thoughtful in-process interventions.
             </p>
           </article>
